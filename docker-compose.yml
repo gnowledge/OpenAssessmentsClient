@@ -14,7 +14,7 @@ services:
 #    command: >
 #      /bin/bash -c 'yarn   &&   yarn build   &&   rsync  -avPh  /OpenAssessmentsClient/build/prod/*  /oac/   &&   rsync  -avPh  /OpenAssessmentsClient/build/prod/*  /oat/   &&   mv  -v  /oat/author.html  /oat/index.html'
   web-nginx:
-    image: mrual4/nginx:
+    image: mrunal4/nginx-phusion:
     volumes:
       - /home/core/OpenAssessmentsClient/nginx-default:/etc/nginx/sites-enabled/default
       - /home/core/data/nginx-proxy/certs:/etc/ssl/assessments-clix.tiss.edu:ro
