@@ -111,9 +111,14 @@ export default (state = initialState, action) => {
       return state.set('numQuestionsChecking', action.numQuestions + checking);
     }
 
+    case AssessmentConstants.ASSESSMENT_SUBMITTED: {
+      const newState = state;
+      return newState.set('isSubmitting', true);
+    }
+
     case AssessmentConstants.ASSESSMENT_SUBMITTED_DONE: {
       const newState = state.set('finishedAt', Date.now());
-      return newState.set('isSubmitted', true);
+      return newState.update('isSubmitting', () => false).set('isSubmitted', true);
     }
 
     default:
