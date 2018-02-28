@@ -3,6 +3,7 @@ import TestUtils               from 'react-dom/test-utils';
 import ReactDOM                from 'react-dom';
 import { Provider }            from 'react-redux';
 import { LiveAnnouncer }       from 'react-aria-live';
+import { mount }             from 'enzyme';
 
 import appHistory              from '../../history';
 import localizeStrings         from '../../selectors/localize';
@@ -10,54 +11,50 @@ import configureStore          from '../../store/configure_store';
 import { SECONDARY_ACTION, PRIMARY_ACTION } from '../assessments/two_button_nav';
 import { Assessment }          from './assessment';
 
-var props;
-var allQuestions,
-  assessment,
-  assessmentProgress,
-  assessmentViewed,
-  currentItem,
-  localizedStrings,
-  previousQuestions,
-  questionCount,
-  questionResults,
-  questionsPerPage,
-  responses,
-  settings,
-  numQuestionsChecking,
-  submitAssessment;
+let props;
+let allQuestions;
+let assessment;
+let assessmentProgress;
+let currentItem;
+let localizedStrings;
+let questionCount;
+let questionResults;
+let questionsPerPage;
+let responses;
+let settings;
+let numQuestionsChecking;
 
-var result;
-var subject;
+let result;
+let subject;
 
 
-
-function reset(){
+function reset() {
   allQuestions = [{
     timeSpent:0,
-    outcomes:{shortOutcome:"", longOutcome:""},
-    material: "Test Material",
+    outcomes: { shortOutcome: '', longOutcome: '' },
+    material: 'Test Material',
     correct:[{
-      id:"testCorrect",
-      value:"100"
+      id: 'testCorrect',
+      value: '100'
     }],
-    points_possible:"1",
-    question_type:"multiple_choice_question",
+    points_possible: '1',
+    question_type: 'multiple_choice_question',
     answers:[
       {
-        id:"testCorrect",
-        material:"test question material"
+        id: 'testCorrect',
+        material: 'test question material'
       },
       {
-        id:"testIncorrect",
-        material:"test question material"
+        id: 'testIncorrect',
+        material: 'test question material'
       }
     ],
-    title:"Test Question Title",
-    id:"TestQuestionID"
+    title: 'Test Question Title',
+    id: 'TestQuestionID'
   }];
 
   assessment = {
-    title: "Test Title"
+    title: 'Test Title'
   };
 
   questionResults = {};
@@ -70,7 +67,7 @@ function reset(){
     currentItemIndex: 0
   };
 
-  localizedStrings = localizeStrings({settings:{locale:"en"}});
+  localizedStrings = localizeStrings({ settings: { locale: 'en' } });
 
   questionCount = 10;
 
@@ -78,10 +75,10 @@ function reset(){
   settings = {
     user_id            : 0,
     max_attempts       : 1,
-    eid                : "external_identifier",
-    src_url            : "http://www.openassessments.com/api/assessments/55.xml",
+    eid                : 'external_identifier',
+    src_url            : 'http://www.openassessments.com/api/assessments/55.xml',
     questions_per_page : 1,
-    assessment_kind    : "SUMMATIVE"
+    assessment_kind    : 'SUMMATIVE'
   };
   numQuestionsChecking = 0;
 
@@ -102,7 +99,7 @@ function reset(){
     questionsPerPage,
     responses,
     scrollParentToTop: () => {},
-    secondaryActionState: {buttonState: SECONDARY_ACTION.PREV},
+    secondaryActionState: { buttonState: SECONDARY_ACTION.PREV },
     sendSize: () => {},
     settings,
     numQuestionsChecking,
@@ -117,16 +114,16 @@ function reset(){
   };
 
   result = TestUtils.renderIntoDocument(
-    <Provider store={configureStore({settings})}>
+    <Provider store={configureStore({ settings })}>
       <LiveAnnouncer>
         <Assessment {...props} />
       </LiveAnnouncer>
     </Provider>
   );
   subject = ReactDOM.findDOMNode(result);
-};
+}
 
-describe("assessment", function() {
+describe('assessment', () => {
 
 
   // Props are reset to these default values between each test. To use
@@ -141,19 +138,19 @@ describe("assessment", function() {
     jasmine.clock().uninstall();
   });
 
-  it("renders the assessment", () => {
+  it('renders the assessment', () => {
     expect(subject).toBeDefined();
   });
 
-  it("renders a question", () => {
-    expect(subject.innerHTML).toContain("Test Material");
+  it('renders a question', () => {
+    expect(subject.innerHTML).toContain('Test Material');
   });
 
-  it("redirects to assessment result when assessment has been submitted", () => {
-    spyOn(appHistory, "push");
-    props.assessmentProgress.assessmentResult = "done";
+  it('redirects to assessment result when assessment has been submitted', () => {
+    spyOn(appHistory, 'push');
+    props.assessmentProgress.assessmentResult = 'done';
     result = TestUtils.renderIntoDocument(
-      <Provider store={configureStore({settings})}>
+      <Provider store={configureStore({ settings })}>
         <LiveAnnouncer>
           <Assessment {...props} />
         </LiveAnnouncer>
@@ -161,7 +158,63 @@ describe("assessment", function() {
     );
     subject = ReactDOM.findDOMNode(result);
 
-    expect(appHistory.push).toHaveBeenCalledWith("assessment-result");
+    expect(appHistory.push).toHaveBeenCalledWith('assessment-result');
+  });
+
+  it('redirects to assessment complete when assessment is submitting', () => {
+    spyOn(appHistory, 'push');
+    props.assessmentProgress.isSubmitting = false;
+    props.settings.unlock_next = 'ALWAYS';
+    result = mount(
+      <Assessment {...props} />,
+      {
+        context: {
+          store: configureStore({ settings })
+        },
+        childContextTypes:
+        {
+          store: React.PropTypes.object.isRequired
+        }
+      }
+    );
+
+    expect(appHistory.push).not.toHaveBeenCalledWith('assessment-complete');
+    result.setProps({
+      assessmentProgress: {
+        isSubmitting: true
+      }
+    });
+
+    expect(appHistory.push).toHaveBeenCalledWith('assessment-complete');
+  });
+
+  it('redirects to assessment complete when assessment has been submitted', () => {
+    spyOn(appHistory, 'push');
+    props.assessmentProgress.isSubmitting = true;
+    props.assessmentProgress.isSubmitted = false;
+    props.settings.unlock_next = 'ON_CORRECT';
+    result = mount(
+      <Assessment {...props} />,
+      {
+        context: {
+          store: configureStore({ settings })
+        },
+        childContextTypes:
+        {
+          store: React.PropTypes.object.isRequired
+        }
+      }
+    );
+
+    expect(appHistory.push).not.toHaveBeenCalledWith('assessment-complete');
+    result.setProps({
+      assessmentProgress: {
+        isSubmitting: false,
+        isSubmitted: true
+      }
+    });
+
+    expect(appHistory.push).toHaveBeenCalledWith('assessment-complete');
   });
 
   it('adds a tabIndex to the wrapping div, to make it focusable', () => {

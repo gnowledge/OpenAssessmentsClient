@@ -16,7 +16,12 @@ import localizeStrings                              from '../selectors/localize'
 /**
  * Determines whether or not a question has been answered or not based on the input
  */
-function isAnswered(userInput) {
+function isAnswered(userInput, questionType) {
+  // For MW Sandbox, need to make sure that there is actually a Blob...not just
+  //   that the words have been moved.
+  if (questionType === 'movable_words_sandbox') {
+    return userInput.some(item => (item instanceof Blob));
+  }
   return userInput.some(item => (!_.isEmpty(item) || item instanceof Blob));
 }
 
@@ -47,6 +52,7 @@ function getFeedback(question, state) {
       return localizedStrings.middleware.mustUploadFile;
 
     case 'audio_upload_question':
+    case 'movable_words_sandbox':
       return localizedStrings.middleware.mustRecordFile;
 
     default:
@@ -151,11 +157,24 @@ function checkAnswers(store, action) {
 
   return _.map(questionIndexes, (questionIndex) => {
     const question = state.assessment.items[questionIndex];
+    const item = transformItem(question);
     // If an Immutable list index is set to undefined (as opposed to not being
     // assigned anything), then the getIn() will still return undefined instead
     //  of the default return value. We need to see if it
     // is actually undefined before calling toJS()
     let userInput = state.assessmentProgress.getIn(['responses', `${questionIndex}`]);
+
+    // Should only continue checking if the answer has been answered correctly
+    //   already. This prevents the "Finish" button from re-submitting
+    //   the last question in a ``unlock_next=ON_CORRECT`` configuration.
+    // ``state.questionResults[questionIndex][0]`` is
+    //   always the most recent response for the given question.
+    if (state.assessmentResults.questionResults[questionIndex] &&
+        state.settings.unlock_next === 'ON_CORRECT' &&
+        state.assessmentResults.questionResults[questionIndex][0].correct) {
+      return null;
+    }
+
     userInput = userInput ? userInput.toJS() : [];
 
     const url = `assessment/banks/${state.settings.bank}/assessmentstaken/${state.assessmentMeta.id}/questions/${question.json.id}/submit`;
@@ -169,7 +188,7 @@ function checkAnswers(store, action) {
 
     // If the user answered hasn't given an answer yet, we need to display
     // feedback telling the user to do so, and not send any information to qbank.
-    if (!isAnswered(userInput)) {
+    if (!isAnswered(userInput, item.question_type)) {
 
       const payload = {
         feedback : `<p>${getFeedback(question, state)}</p>`,
@@ -326,7 +345,6 @@ export default {
           settings      : action.settings
         }
       };
-
     }
   },
 
@@ -336,12 +354,17 @@ export default {
 
       const url = `assessment/banks/${state.settings.bank}/assessmentstaken/${state.assessmentMeta.id}/finish`;
 
+      store.dispatch({
+        type     : action.type,
+        original : action,
+      });
+
       const promise = postQbank(state, url);
 
       if (promise) {
         promise.then((response, error) => {
           store.dispatch({
-            type     :     action.type + DONE,
+            type     : action.type + DONE,
             payload  : response.body,
             original : action,
             response,
