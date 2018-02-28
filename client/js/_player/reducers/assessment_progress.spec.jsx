@@ -5,13 +5,9 @@ import assessmentProgress                   from './assessment_progress';
 
 describe('assessment reducer', () => {
 
-  const settings = Immutable.fromJS({});
-  var initialState;
-  var parsedAssessment;
-
-
-  describe("initial reducer state", () => {
-    it("returns empty state", () => {
+  describe('initial reducer state', () => {
+    it('returns empty state', () => {
+      let initialState;
       const state = assessmentProgress(initialState, {});
       expect(state.toJS()).toEqual({
         isSubmitted: false,
@@ -29,45 +25,45 @@ describe('assessment reducer', () => {
   });
 
 
-  describe("next question", () => {
+  describe('next question', () => {
     const action = {
       type: AssessmentConstants.ASSESSMENT_NEXT_QUESTIONS,
       pageSize:3
     };
 
-    it("increments currentItemIndex", () => {
-      var state = assessmentProgress(undefined, action);
+    it('increments currentItemIndex', () => {
+      const state = assessmentProgress(undefined, action);
       expect(state.get('currentItemIndex')).toEqual(3);
     });
   });
 
-  describe("previous question", () => {
+  describe('previous question', () => {
     const action = {
       type: AssessmentConstants.ASSESSMENT_PREVIOUS_QUESTIONS,
       pageSize:2
     };
-    let initialState = Immutable.fromJS({currentItemIndex: 5});
+    const initialState = Immutable.fromJS({ currentItemIndex: 5 });
 
-    it("decrements currentItemIndex", () => {
+    it('decrements currentItemIndex', () => {
       const state = assessmentProgress(initialState, action);
       expect(state.get('currentItemIndex')).toEqual(3);
     });
   });
 
 
-  describe("assessment viewed", () => {
+  describe('assessment viewed', () => {
     const action = {
       type: AssessmentConstants.ASSESSMENT_VIEWED,
     };
 
-    it("sets started at time", () => {
+    it('sets started at time', () => {
       const state = assessmentProgress(undefined, action);
       expect(state.get('startedAt')).not.toEqual(0);
     });
   });
 
-  describe("answer selected", () => {
-    const action = {
+  describe('answer selected', () => {
+    let action = {
       type: AssessmentConstants.ANSWER_SELECTED,
       questionIndex:0,
       answerData:1,
@@ -79,57 +75,78 @@ describe('assessment reducer', () => {
       expect(state.getIn(['responses', '0']).toJS()).toEqual([1]);
     });
 
-    it("appends to array if items already exist and exclusive flag is false", () => {
-      var initialState = Immutable.fromJS({responses:[[2]]});
+    it('appends to array if items already exist and exclusive flag is false', () => {
+      const initialState = Immutable.fromJS({ responses:[[2]] });
       const state = assessmentProgress(initialState, action);
-      expect(state.getIn(['responses', '0']).toJS()).toEqual([2,1]);
+      expect(state.getIn(['responses', '0']).toJS()).toEqual([2, 1]);
     });
 
-    it("replaces responses if exclusive answer flag is true", () => {
-      let action = {
+    it('replaces responses if exclusive answer flag is true', () => {
+      action = {
         type: AssessmentConstants.ANSWER_SELECTED,
         questionIndex:0,
         answerData:1,
         exclusive:true
       };
-      var initialState = Immutable.fromJS({responses:[[2]]});
+      const initialState = Immutable.fromJS({ responses:[[2]] });
       const state = assessmentProgress(initialState, action);
       expect(state.getIn(['responses', '0']).toJS()).toEqual([1]);
     });
 
   });
 
-  describe("check answer done", () => {
+  describe('check answer done', () => {
     const action = {
       type: AssessmentConstants.ASSESSMENT_CHECK_ANSWER_DONE,
-      payload:{correct:true, feedback:"You win!"},
+      payload:{ correct:true, feedback: 'You win!' },
       userInput:['a'],
       questionIndex:3
     };
-    it("it returns feedback", () => {
-      var initialState = Immutable.fromJS({checkedResponses:[]});
+    it('it returns feedback', () => {
+      const initialState = Immutable.fromJS({ checkedResponses:[] });
       const state = assessmentProgress(initialState, action);
       expect(state.getIn(['checkedResponses', '3']).toJS()).toEqual(
-        {a:{correct:true, feedback:"You win!"}}
+        { a:{ correct:true, feedback: 'You win!' } }
       );
     });
 
-    it("decrements numQuestionsChecking", () => {
-      var initialState = Immutable.fromJS({numQuestionsChecking:1});
+    it('decrements numQuestionsChecking', () => {
+      const initialState = Immutable.fromJS({ numQuestionsChecking:1 });
       const state = assessmentProgress(initialState, action);
       expect(state.get('numQuestionsChecking')).toEqual(0);
     });
   });
 
-  describe("check questions", () => {
+  describe('check questions', () => {
     it('checks adds number of questions to numQuestionsChecking', () => {
       const action = {
         type: AssessmentConstants.CHECK_QUESTIONS,
         numQuestions: 1
       };
-      var initialState = Immutable.fromJS({numQuestionsChecking:0});
+      const initialState = Immutable.fromJS({ numQuestionsChecking:0 });
       const state = assessmentProgress(initialState, action);
       expect(state.get('numQuestionsChecking')).toEqual(1);
+    });
+  });
+
+  describe('submit assessment', () => {
+    it('should flag the submission as in progress', () => {
+      const action = {
+        type: AssessmentConstants.ASSESSMENT_SUBMITTED
+      };
+      const initialState = Immutable.fromJS({ foo: 'bar' });
+      const state = assessmentProgress(initialState, action);
+      expect(state.get('isSubmitting')).toEqual(true);
+    });
+
+    it('should flag the submission as complete', () => {
+      const action = {
+        type: AssessmentConstants.ASSESSMENT_SUBMITTED_DONE
+      };
+      const initialState = Immutable.fromJS({ isSubmitting: true });
+      const state = assessmentProgress(initialState, action);
+      expect(state.get('isSubmitting')).toEqual(false);
+      expect(state.get('isSubmitted')).toEqual(true);
     });
   });
 

@@ -72,6 +72,7 @@ export class Assessment extends React.Component {
     assessmentProgress: React.PropTypes.shape({
       assessmentResult: React.PropTypes.string,
       isSubmitted: React.PropTypes.bool,
+      isSubmitting: React.PropTypes.bool,
       currentItemIndex: React.PropTypes.number,
       checkedResponses: React.PropTypes.array,
       numQuestionsChecking: React.PropTypes.number,
@@ -80,6 +81,7 @@ export class Assessment extends React.Component {
     settings: React.PropTypes.shape({
       assessment_kind: React.PropTypes.string,
       locale: React.PropTypes.string,
+      unlock_next: React.PropTypes.string
     }),
     assessment: React.PropTypes.shape({
       title: React.PropTypes.string,
@@ -166,7 +168,9 @@ export class Assessment extends React.Component {
   componentDidUpdate(prevProps) {
     this.props.sendSize();
 
-    if (this.props.assessmentProgress.isSubmitted) {
+    if ((this.props.assessmentProgress.isSubmitting &&
+          this.props.settings.unlock_next === 'ALWAYS') ||
+        this.props.assessmentProgress.isSubmitted) {
       appHistory.push('assessment-complete');
     }
 
@@ -316,6 +320,9 @@ export class Assessment extends React.Component {
   }
 
   submitButtonClicked() {
+    // This is ONLY called on click of the "Finish" button, which
+    //   for CLIx, should **not** re-submit the entire
+    //   assessment.
     this.props.submitAssessment();
   }
 
