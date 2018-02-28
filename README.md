@@ -324,3 +324,8 @@ For Moveable Words
 * Connected a word block to the sentence starter, existing sentence, or another word block (log which word, what it was connected to)
 * Disconnected a word block (log which word)
 * Sentence saved on “done”, “finish” or “check answer”
+
+For Drag and Drop:
+* Drop a draggable image onto a zone.
+* Remove a draggable image from a zone.
+* **NOTE** this means that dragging an image from one zone to another creates two log events.

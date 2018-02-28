@@ -39,18 +39,23 @@ function getAnswerSelectedData(store, action) {
   switch (question.question_type) {
     case 'movable_words_sentence':
     case 'movable_words_sandbox':
+      // Needed to add the Blob filterNot methods to prevent sandbox from
+      //   throwing an exception when the student tries to move words
+      //   after recording audio.
       if (_.isString(action.answerData)) {
         if (currentAnswers.includes(action.answerData)) {
           return {
             action          : 'disconnect word',
             targetWord      : answersById[action.answerData].material,
-            currentSentence : currentAnswers.map(answerData => (answersById[answerData].material))
+            currentSentence : currentAnswers.filterNot(answer => (answer instanceof Blob))
+              .map(answerData => (answersById[answerData].material))
           };
         }
         return {
           action          : 'connect word',
           targetWord      : answersById[action.answerData].material,
-          currentSentence : currentAnswers.map(answerData => (answersById[answerData].material))
+          currentSentence : currentAnswers.filterNot(answer => (answer instanceof Blob))
+            .map(answerData => (answersById[answerData].material))
         };
       }
       break;
