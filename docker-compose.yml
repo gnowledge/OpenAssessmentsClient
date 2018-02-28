@@ -11,26 +11,26 @@ services:
       - .:/OpenAssessmentsClient
       - /home/core/data/OpenAssessmentsClient/oac:/oac
       - /home/core/data/OpenAssessmentsClient/oat:/oat
-#    command: >
-#      /bin/bash -c 'yarn   &&   yarn build   &&   rsync  -avPh  /OpenAssessmentsClient/build/prod/*  /oac/   &&   rsync  -avPh  /OpenAssessmentsClient/build/prod/*  /oat/   &&   mv  -v  /oat/author.html  /oat/index.html'
+    command: >
+      /bin/bash -c 'yarn   &&   yarn build   &&   rsync  -avPh  /OpenAssessmentsClient/build/prod/*  /oac/   &&   rsync  -avPh  /OpenAssessmentsClient/build/prod/*  /oat/   &&   mv  -v  /oat/author.html  /oat/index.html'
   web-nginx:
     image: mrunal4/nginx-phusion
     volumes:
-      - /home/core/OpenAssessmentsClient/nginx-sites-available:/etc/nginx/sites-available
       - /home/core/data/nginx-proxy/certs:/etc/ssl/assessments-clix.tiss.edu:ro
       - /home/core/data/OpenAssessmentsClient/oac:/var/www/oac:ro
       - /home/core/data/OpenAssessmentsClient/oat:/var/www/oat:ro      
-    expose:
-      - "443"
+      - /home/core/new/OpenAssessmentsClient/nginx-conf:/etc/nginx/sites-available
+    expose: ["443"]
+    environment:
+      - VIRTUAL_HOST=assessments-clix.tiss.edu
+      - HTTPS_METHOD=noredirect
+#      - VIRTUAL_PROTO=https
+#      - VIRTUAL_PROT=443
+      - LETSENCRYPT_HOST=assessments-clix.tiss.edu
+      - LETSENCRYPT_EMAIL=mrunal.nachankar@tiss.edu
     ports:
       - "8180:80"
       - "8143:443"
-    environment:
-      - LETSENCRYPT_EMAIL=mrunal.nachankar@tiss.edu
-      - LETSENCRYPT_HOST=assessments-clix.tiss.edu
-      - VIRTUAL_HOST=assessments-clix.tiss.edu
-#      - VIRTUAL_PROTO=https
-#      - VIRTUAL_PORT=443
 
 networks:
   default:
