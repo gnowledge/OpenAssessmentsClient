@@ -4,6 +4,7 @@ import React                  from 'react';
 import ReactDOM               from 'react-dom';
 import { Provider }           from 'react-redux';
 import injectTapEventPlugin   from 'react-tap-event-plugin';
+import { Helmet }             from 'react-helmet';
 import routes                 from './routes';
 import DevTools               from '../dev/dev_tools';
 import configureStore         from './store/configure_store';
@@ -28,9 +29,16 @@ class Root extends React.PureComponent {
   render() {
     const devTools = __DEV__ ? <DevTools /> : null;
     const { store } = this.props;
+    // Note that right now you cannot change authoring tool
+    //   settings values via cgi-parameters in the URL.
+    // So the ``lang`` value is always what is in ``_head.html``
     return (
       <Provider store={store}>
         <div>
+          <Helmet>
+            <html lang={store.getState().settings.locale} />
+          </Helmet>
+
           {routes}
           {devTools}
         </div>

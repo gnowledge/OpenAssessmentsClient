@@ -9,13 +9,18 @@ ShallowWrapper {
   },
   "length": 1,
   "node": <button
+    aria-describedby="preview-"
     className="au-c-btn au-c-btn--square au-c-table__btn  is-inactive"
     disabled={true}
     onClick={[Function]}
     onFocus={[Function]}
 >
+    <span
+        id="preview-"
+        role="tooltip"
+    />
     <i
-        aria-label="Preview assessment"
+        aria-label=""
         className="material-icons"
     >
         remove_red_eye
@@ -23,13 +28,18 @@ ShallowWrapper {
 </button>,
   "nodes": Array [
     <button
+      aria-describedby="preview-"
       className="au-c-btn au-c-btn--square au-c-table__btn  is-inactive"
       disabled={true}
       onClick={[Function]}
       onFocus={[Function]}
 >
+      <span
+            id="preview-"
+            role="tooltip"
+      />
       <i
-            aria-label="Preview assessment"
+            aria-label=""
             className="material-icons"
       >
             remove_red_eye
@@ -50,6 +60,7 @@ ShallowWrapper {
                         "isPublished": false,
                       }
         }
+        localizeStrings={[Function]}
         onFocus={[Function]}
 />,
       "_debugID": 1,
@@ -64,6 +75,7 @@ ShallowWrapper {
             "id": "",
             "isPublished": false,
           },
+          "localizeStrings": [Function],
           "onFocus": [Function],
         },
         "refs": Object {},
@@ -87,13 +99,18 @@ ShallowWrapper {
       "_pendingStateQueue": null,
       "_renderedComponent": NoopInternalComponent {
         "_currentElement": <button
+          aria-describedby="preview-"
           className="au-c-btn au-c-btn--square au-c-table__btn  is-inactive"
           disabled={true}
           onClick={[Function]}
           onFocus={[Function]}
 >
+          <span
+                    id="preview-"
+                    role="tooltip"
+          />
           <i
-                    aria-label="Preview assessment"
+                    aria-label=""
                     className="material-icons"
           >
                     remove_red_eye
@@ -101,13 +118,18 @@ ShallowWrapper {
 </button>,
         "_debugID": 2,
         "_renderedOutput": <button
+          aria-describedby="preview-"
           className="au-c-btn au-c-btn--square au-c-table__btn  is-inactive"
           disabled={true}
           onClick={[Function]}
           onFocus={[Function]}
 >
+          <span
+                    id="preview-"
+                    role="tooltip"
+          />
           <i
-                    aria-label="Preview assessment"
+                    aria-label=""
                     className="material-icons"
           >
                     remove_red_eye
@@ -132,6 +154,7 @@ ShallowWrapper {
             "isPublished": false,
           }
     }
+    localizeStrings={[Function]}
     onFocus={[Function]}
 />,
 }

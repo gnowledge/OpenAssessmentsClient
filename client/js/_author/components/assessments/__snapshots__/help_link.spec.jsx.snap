@@ -15,6 +15,12 @@ ShallowWrapper {
     target="_blank"
 >
     What's this?
+    <i
+        aria-hidden={true}
+        className="material-icons open-external"
+    >
+        open_in_new
+    </i>
 </a>,
   "nodes": Array [
     <a
@@ -24,6 +30,12 @@ ShallowWrapper {
       target="_blank"
 >
       What's this?
+      <i
+            aria-hidden={true}
+            className="material-icons open-external"
+      >
+            open_in_new
+      </i>
 </a>,
   ],
   "options": Object {},
@@ -71,6 +83,12 @@ ShallowWrapper {
           target="_blank"
 >
           What's this?
+          <i
+                    aria-hidden={true}
+                    className="material-icons open-external"
+          >
+                    open_in_new
+          </i>
 </a>,
         "_debugID": 2,
         "_renderedOutput": <a
@@ -80,6 +98,12 @@ ShallowWrapper {
           target="_blank"
 >
           What's this?
+          <i
+                    aria-hidden={true}
+                    className="material-icons open-external"
+          >
+                    open_in_new
+          </i>
 </a>,
       },
       "_renderedNodeType": 0,

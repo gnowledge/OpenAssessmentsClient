@@ -9,13 +9,18 @@ ShallowWrapper {
   },
   "length": 1,
   "node": <button
+    aria-describedby="delete-"
     className="au-c-btn au-c-btn--square au-c-table__btn "
     disabled={false}
     onClick={[Function]}
     onFocus={[Function]}
 >
+    <span
+        id="delete-"
+        role="tooltip"
+    />
     <i
-        aria-label="Delete assessment"
+        aria-label=""
         className="material-icons"
     >
         delete
@@ -23,13 +28,18 @@ ShallowWrapper {
 </button>,
   "nodes": Array [
     <button
+      aria-describedby="delete-"
       className="au-c-btn au-c-btn--square au-c-table__btn "
       disabled={false}
       onClick={[Function]}
       onFocus={[Function]}
 >
+      <span
+            id="delete-"
+            role="tooltip"
+      />
       <i
-            aria-label="Delete assessment"
+            aria-label=""
             className="material-icons"
       >
             delete
@@ -51,6 +61,7 @@ ShallowWrapper {
                       }
         }
         deleteAssessment={[Function]}
+        localizeStrings={[Function]}
         onFocus={[Function]}
 />,
       "_debugID": 1,
@@ -66,6 +77,7 @@ ShallowWrapper {
             "isPublished": false,
           },
           "deleteAssessment": [Function],
+          "localizeStrings": [Function],
           "onFocus": [Function],
         },
         "refs": Object {},
@@ -89,13 +101,18 @@ ShallowWrapper {
       "_pendingStateQueue": null,
       "_renderedComponent": NoopInternalComponent {
         "_currentElement": <button
+          aria-describedby="delete-"
           className="au-c-btn au-c-btn--square au-c-table__btn "
           disabled={false}
           onClick={[Function]}
           onFocus={[Function]}
 >
+          <span
+                    id="delete-"
+                    role="tooltip"
+          />
           <i
-                    aria-label="Delete assessment"
+                    aria-label=""
                     className="material-icons"
           >
                     delete
@@ -103,13 +120,18 @@ ShallowWrapper {
 </button>,
         "_debugID": 2,
         "_renderedOutput": <button
+          aria-describedby="delete-"
           className="au-c-btn au-c-btn--square au-c-table__btn "
           disabled={false}
           onClick={[Function]}
           onFocus={[Function]}
 >
+          <span
+                    id="delete-"
+                    role="tooltip"
+          />
           <i
-                    aria-label="Delete assessment"
+                    aria-label=""
                     className="material-icons"
           >
                     delete
@@ -135,6 +157,7 @@ ShallowWrapper {
           }
     }
     deleteAssessment={[Function]}
+    localizeStrings={[Function]}
     onFocus={[Function]}
 />,
 }
