@@ -14,6 +14,9 @@ describe('edit_button component', () => {
         isPublished: false,
       },
       onFocus: () => { focused = true; },
+      localizeStrings: () => ({
+        edit: ''
+      })
     };
     result = shallow(<EditButton {...props} />);
   });

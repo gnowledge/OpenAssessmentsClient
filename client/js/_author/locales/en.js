@@ -54,6 +54,15 @@ export default {
       name: 'Name',
       published: 'Published'
     },
+    bankListButtons: {
+      publish: 'Click to publish assessment',
+      unpublish: 'Click to unpublish assessment',
+      edit: 'Click to edit the assessment',
+      delete: 'Click to delete the assessment',
+      preview: 'Click to preview the assessment',
+      copyEmbedCode: 'Click to copy the embed code',
+      generateEmbedCode: 'Click to generate an embed code'
+    },
     commonAddOption: {
       addOption: 'Add Option',
     },

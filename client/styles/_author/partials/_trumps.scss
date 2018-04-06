@@ -29,4 +29,16 @@
 
 *:focus {
   outline: 0.15em dotted;
+  outline-offset: 0.25rem;
+}
+
+a.help-link,
+a.help-link:visited,
+a.help-link:link {
+  text-decoration: underline;
+
+  i.open-external {
+    font-size: 1.5rem;
+    margin-left: 0.3rem;
+  }
 }

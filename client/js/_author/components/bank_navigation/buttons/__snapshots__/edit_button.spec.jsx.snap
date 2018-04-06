@@ -9,13 +9,18 @@ ShallowWrapper {
   },
   "length": 1,
   "node": <button
+    aria-describedby="edit-undefined"
     className="au-c-btn au-c-btn--square au-c-table__btn "
     disabled={false}
     onClick={undefined}
     onFocus={[Function]}
 >
+    <span
+        id="edit-undefined"
+        role="tooltip"
+    />
     <i
-        aria-label="Edit assessment"
+        aria-label=""
         className="material-icons"
     >
         edit
@@ -23,13 +28,18 @@ ShallowWrapper {
 </button>,
   "nodes": Array [
     <button
+      aria-describedby="edit-undefined"
       className="au-c-btn au-c-btn--square au-c-table__btn "
       disabled={false}
       onClick={undefined}
       onFocus={[Function]}
 >
+      <span
+            id="edit-undefined"
+            role="tooltip"
+      />
       <i
-            aria-label="Edit assessment"
+            aria-label=""
             className="material-icons"
       >
             edit
@@ -48,6 +58,7 @@ ShallowWrapper {
                         "isPublished": false,
                       }
         }
+        localizeStrings={[Function]}
         onFocus={[Function]}
 />,
       "_debugID": 1,
@@ -60,6 +71,7 @@ ShallowWrapper {
           "assessment": Object {
             "isPublished": false,
           },
+          "localizeStrings": [Function],
           "onFocus": [Function],
         },
         "refs": Object {},
@@ -83,13 +95,18 @@ ShallowWrapper {
       "_pendingStateQueue": null,
       "_renderedComponent": NoopInternalComponent {
         "_currentElement": <button
+          aria-describedby="edit-undefined"
           className="au-c-btn au-c-btn--square au-c-table__btn "
           disabled={false}
           onClick={undefined}
           onFocus={[Function]}
 >
+          <span
+                    id="edit-undefined"
+                    role="tooltip"
+          />
           <i
-                    aria-label="Edit assessment"
+                    aria-label=""
                     className="material-icons"
           >
                     edit
@@ -97,13 +114,18 @@ ShallowWrapper {
 </button>,
         "_debugID": 2,
         "_renderedOutput": <button
+          aria-describedby="edit-undefined"
           className="au-c-btn au-c-btn--square au-c-table__btn "
           disabled={false}
           onClick={undefined}
           onFocus={[Function]}
 >
+          <span
+                    id="edit-undefined"
+                    role="tooltip"
+          />
           <i
-                    aria-label="Edit assessment"
+                    aria-label=""
                     className="material-icons"
           >
                     edit
@@ -126,6 +148,7 @@ ShallowWrapper {
             "isPublished": false,
           }
     }
+    localizeStrings={[Function]}
     onFocus={[Function]}
 />,
 }

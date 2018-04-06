@@ -11,6 +11,7 @@ import EditButton             from './buttons/edit_button';
 import DeleteButton           from './buttons/delete_button';
 import PreviewButton          from './buttons/preview_button';
 import DotLoader              from '../common/dot_loader';
+import localize               from '../../locales/localize';
 
 
 function select() {
@@ -27,6 +28,7 @@ export class BankAssessment extends React.Component {
     togglePublishAssessment: React.PropTypes.func.isRequired,
     onFocus: React.PropTypes.func.isRequired,
     deleteAssessment: React.PropTypes.func.isRequired,
+    localizeStrings: React.PropTypes.func
   };
 
   constructor() {
@@ -96,6 +98,7 @@ export class BankAssessment extends React.Component {
               selectedAssessment => this.props.togglePublishAssessment(selectedAssessment)
             }
             onFocus={this.props.onFocus}
+            localizeStrings={this.props.localizeStrings}
           />
         </td>
         <td>
@@ -119,4 +122,4 @@ export class BankAssessment extends React.Component {
 
 export default connect(select, {
   ...AssessmentActions,
-})(BankAssessment);
+})(localize(BankAssessment));

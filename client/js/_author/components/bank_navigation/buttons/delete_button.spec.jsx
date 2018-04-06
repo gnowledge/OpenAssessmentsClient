@@ -19,6 +19,9 @@ describe('delete_button component', () => {
         bankId: '',
         id: '',
       },
+      localizeStrings: () => ({
+        delete: ''
+      })
     };
 
     result = shallow(<DeleteButton {...props} />);
