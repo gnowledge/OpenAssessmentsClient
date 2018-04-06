@@ -9,18 +9,28 @@ ShallowWrapper {
   },
   "length": 1,
   "node": <button
-    className="au-c-btn au-c-btn--sm au-c-table__btn"
+    aria-describedby="generate-embed-undefined"
+    className="au-c-btn au-c-btn--sm au-c-table__btn au-c-btn--generate-embed-code"
     onClick={[Function]}
     onFocus={[Function]}
 >
+    <span
+        id="generate-embed-undefined"
+        role="tooltip"
+    />
     embed code
 </button>,
   "nodes": Array [
     <button
-      className="au-c-btn au-c-btn--sm au-c-table__btn"
+      aria-describedby="generate-embed-undefined"
+      className="au-c-btn au-c-btn--sm au-c-table__btn au-c-btn--generate-embed-code"
       onClick={[Function]}
       onFocus={[Function]}
 >
+      <span
+            id="generate-embed-undefined"
+            role="tooltip"
+      />
       embed code
 </button>,
   ],
@@ -39,6 +49,7 @@ ShallowWrapper {
         }
         baseEmbedUrl=""
         getEmbedCode={[Function]}
+        localizeStrings={[Function]}
         onFocus={[Function]}
 />,
       "_debugID": 1,
@@ -54,6 +65,7 @@ ShallowWrapper {
           },
           "baseEmbedUrl": "",
           "getEmbedCode": [Function],
+          "localizeStrings": [Function],
           "onFocus": [Function],
         },
         "refs": Object {},
@@ -77,18 +89,28 @@ ShallowWrapper {
       "_pendingStateQueue": null,
       "_renderedComponent": NoopInternalComponent {
         "_currentElement": <button
-          className="au-c-btn au-c-btn--sm au-c-table__btn"
+          aria-describedby="generate-embed-undefined"
+          className="au-c-btn au-c-btn--sm au-c-table__btn au-c-btn--generate-embed-code"
           onClick={[Function]}
           onFocus={[Function]}
 >
+          <span
+                    id="generate-embed-undefined"
+                    role="tooltip"
+          />
           embed code
 </button>,
         "_debugID": 2,
         "_renderedOutput": <button
-          className="au-c-btn au-c-btn--sm au-c-table__btn"
+          aria-describedby="generate-embed-undefined"
+          className="au-c-btn au-c-btn--sm au-c-table__btn au-c-btn--generate-embed-code"
           onClick={[Function]}
           onFocus={[Function]}
 >
+          <span
+                    id="generate-embed-undefined"
+                    role="tooltip"
+          />
           embed code
 </button>,
       },
@@ -111,6 +133,7 @@ ShallowWrapper {
     }
     baseEmbedUrl=""
     getEmbedCode={[Function]}
+    localizeStrings={[Function]}
     onFocus={[Function]}
 />,
 }

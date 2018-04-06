@@ -169,6 +169,7 @@ export class EditAssessment extends React.Component {
           assessment={this.props.assessment}
           items={this.props.items}
           getBankChildren={bankId => this.getBankChildren(bankId)}
+          updatePath={this.props.updatePath}
         />
         <AssessmentForm
           bankId={this.props.params.bankId}

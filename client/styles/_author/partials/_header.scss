@@ -10,7 +10,13 @@
     @include display-flex;
     @include align-items(center);
 
-    a {
+    a.home-link {
+      position: absolute;
+      left: 2rem;
+      color: $purple2;
+    }
+
+    a.help-link {
       position: absolute;
       right: 2rem;
       color: $purple2;

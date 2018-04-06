@@ -16,7 +16,11 @@ describe('PublishButton component', () => {
       onFocus: () => { focused = true; },
       assessment: {
         isToggling: true,
+        id: '',
       },
+      localizeStrings: () => ({
+        publish: ''
+      })
     };
 
     result = shallow(<PublishButton {...props} />);

@@ -17,6 +17,10 @@ describe('embed_button component', () => {
       getEmbedCode: () => {},
       onFocus: () => { focused = true; },
       baseEmbedUrl: '',
+      localizeStrings: () => ({
+        copyEmbedCode: '',
+        generateEmbedCode: ''
+      })
     };
     result = shallow(<EmbedButton {...props} />);
   });

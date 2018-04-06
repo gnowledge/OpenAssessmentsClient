@@ -1,4 +1,5 @@
 import React          from 'react';
+import { Link } from 'react-router';
 import assets         from '../../../libs/assets';
 import BanksView      from '../bank_navigation/navigation_bar_content';
 import AssessmentView from '../assessments/navigation_bar_content';
@@ -25,7 +26,9 @@ export default function heading(props) {
   return (
     <header className="au-c-header">
       <div className="au-c-header-top">
-        <img src={logo} alt="CLI Logo" className="au-c-logo" />
+        <Link to="/" className="home-link" onClick={() => { props.updatePath(null); }}>
+          <img src={logo} alt="Clix assessment authoring home" className="au-c-logo" />
+        </Link>
         <HelpLink
           icon
           to="/help.html#getting-started-as-an-author"
@@ -39,4 +42,5 @@ export default function heading(props) {
 heading.propTypes = {
   view: React.PropTypes.string,
   children: React.PropTypes.node,
+  updatePath: React.PropTypes.func
 };

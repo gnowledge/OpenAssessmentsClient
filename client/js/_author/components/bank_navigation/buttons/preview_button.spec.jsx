@@ -16,6 +16,9 @@ describe('preview_button component', () => {
         id: '',
       },
       onFocus: () => { focused = true; },
+      localizeStrings: () => ({
+        preview: ''
+      })
     };
 
     result = shallow(<PreviewButton {...props} />);

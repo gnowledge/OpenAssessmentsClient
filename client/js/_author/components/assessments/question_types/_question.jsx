@@ -305,9 +305,9 @@ export class Question extends React.Component {
   }
 
   content() {
-    const { bankId, item } = this.props;
+    const { bankId, item, isActive } = this.props;
     const Component = Question.questionComponents[this.props.item.type];
-    if (Component) {
+    if (Component && isActive) {
       return (
         <Component
           item={_.merge(item, this.state.item)}
@@ -336,8 +336,8 @@ export class Question extends React.Component {
     const { name, type, id, question, bankId } = item;
     const { multipleAnswer, multipleReflection, reflection } = types;
 
-    return (
-      <div>
+    const settings = isActive ?
+      (
         <Settings
           id={id}
           updateItem={newProps => this.updateItem(newProps)}
@@ -350,6 +350,12 @@ export class Question extends React.Component {
           makeMultipleAnswer={multi => this.makeMultipleAnswer(multi)}
           type={type}
         />
+      ) :
+      null;
+
+    return (
+      <div>
+        {settings}
         <div className={`au-c-question__content ${this.props.reorderActive ? 'is-reordering' : ''}`}>
           <QuestionText
             isActive={isActive}

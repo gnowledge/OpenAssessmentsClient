@@ -1,8 +1,12 @@
 import React from 'react';
 
 export default function DeleteButton(props) {
-  const { deleteAssessment, assessment, onFocus } = props;
+  const {
+    deleteAssessment, assessment, onFocus, localizeStrings
+  } = props;
   const isPublished = assessment.isPublished;
+  const strings = localizeStrings('bankListButtons');
+  const uniqId = `delete-${assessment.id}`;
   return (
     <button
       className={`au-c-btn au-c-btn--square au-c-table__btn ${isPublished ? 'is-inactive' : ''}`}
@@ -12,9 +16,16 @@ export default function DeleteButton(props) {
         deleteAssessment(assessment.bankId, assessment.id);
       }}
       onFocus={onFocus}
+      aria-describedby={uniqId}
     >
+      <span
+        id={uniqId}
+        role="tooltip"
+      >
+        {strings.delete}
+      </span>
       <i
-        aria-label="Delete assessment"
+        aria-label={strings.delete}
         className="material-icons"
       >
         delete
@@ -31,4 +42,5 @@ DeleteButton.propTypes = {
     bankId: React.PropTypes.string.isRequired,
     id: React.PropTypes.string.isRequired,
   }).isRequired,
+  localizeStrings: React.PropTypes.func
 };

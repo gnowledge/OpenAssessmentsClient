@@ -3,10 +3,14 @@ import _ from 'lodash';
 import CopyToClipboard  from 'react-copy-to-clipboard';
 
 export default function EmbedButton(props) {
-  const { assessment, baseEmbedUrl, getEmbedCode } = props;
+  const {
+    assessment, baseEmbedUrl, getEmbedCode, localizeStrings
+  } = props;
   const isPublished = assessment.isPublished;
   const assessOffered = _.get(assessment, 'assessmentOffered[0]');
-
+  const strings = localizeStrings('bankListButtons');
+  const uniqIdGenerate = `generate-embed-${assessment.id}`;
+  const uniqIdCopy = `copy-embed-${assessment.id}`;
   if (isPublished) {
     if (assessOffered) {
       let embedUrlCode = `${baseEmbedUrl}&bank=${assessOffered.bankId}&assessment_offered_id=${assessOffered.id}`;
@@ -44,12 +48,19 @@ export default function EmbedButton(props) {
           </label>
           <CopyToClipboard text={iframeCode}>
             <button
-              className="au-c-btn au-c-btn--square au-c-btn--embed "
+              className="au-c-btn au-c-btn--square au-c-btn--embed au-c-btn--copy-embed-code"
               onClick={e => e.stopPropagation()}
               onFocus={props.onFocus}
+              aria-describedby={uniqIdCopy}
             >
+              <span
+                id={uniqIdCopy}
+                role="tooltip"
+              >
+                {strings.copyEmbedCode}
+              </span>
               <i
-                aria-label="Copy iframe code"
+                aria-label={strings.copyEmbedCode}
                 className="material-icons"
               >
                 content_paste
@@ -61,13 +72,20 @@ export default function EmbedButton(props) {
     }
     return (
       <button
-        className="au-c-btn au-c-btn--sm au-c-table__btn"
+        className="au-c-btn au-c-btn--sm au-c-table__btn au-c-btn--generate-embed-code"
         onClick={(e) => {
           e.stopPropagation();
           getEmbedCode(assessment);
         }}
         onFocus={props.onFocus}
+        aria-describedby={uniqIdGenerate}
       >
+        <span
+          id={uniqIdGenerate}
+          role="tooltip"
+        >
+          {strings.generateEmbedCode}
+        </span>
         embed code
       </button>
     );
@@ -81,4 +99,5 @@ EmbedButton.propTypes = {
   getEmbedCode: React.PropTypes.func.isRequired,
   onFocus: React.PropTypes.func.isRequired,
   baseEmbedUrl: React.PropTypes.string.isRequired,
+  localizeStrings: React.PropTypes.func
 };
