@@ -79,37 +79,94 @@ describe('question component', () => {
     expect(itemUpdated).toBeTruthy();
   });
 
-  it('shows renders Multiple Choice', () => {
+  it('shows renders Multiple Choice if active', () => {
     props.item.type = 'multipleChoice';
+    props.isActive = true;
     result = shallow(<Question {...props} />);
 
     const multipleChoice = result.find('MultipleChoice');
     expect(multipleChoice.length).toBe(1);
+    expect(result.text()).toContain('questionSettings');
+    expect(result.find('QuestionText').length).toBe(1);
   });
 
-  it('shows renders Audio Upload', () => {
+  it('does not render Multiple Choice content if inactive', () => {
+    props.item.type = 'multipleChoice';
+    props.isActive = false;
+    result = shallow(<Question {...props} />);
+
+    const multipleChoice = result.find('MultipleChoice');
+    expect(multipleChoice.length).toBe(0);
+    expect(result.text()).not.toContain('questionSettings');
+    expect(result.find('QuestionText').length).toBe(1);
+  });
+
+  it('shows renders Audio Upload if active', () => {
     props.item.type = 'audioUpload';
+    props.isActive = true;
     result = shallow(<Question {...props} />);
 
     const audioUpload = result.find('AudioUpload');
 
     expect(audioUpload.length).toBe(1);
+    expect(result.text()).toContain('questionSettings');
+    expect(result.find('QuestionText').length).toBe(1);
   });
 
-  it('shows renders fileUpload', () => {
+  it('does not render Audio Upload content if inactive', () => {
+    props.item.type = 'audioUpload';
+    props.isActive = false;
+    result = shallow(<Question {...props} />);
+
+    const audioUpload = result.find('AudioUpload');
+
+    expect(audioUpload.length).toBe(0);
+    expect(result.text()).not.toContain('questionSettings');
+    expect(result.find('QuestionText').length).toBe(1);
+  });
+
+  it('shows renders fileUpload if active', () => {
     props.item.type = 'fileUpload';
+    props.isActive = true;
     result = shallow(<Question {...props} />);
 
     const fileUpload = result.find('FileUpload');
     expect(fileUpload.length).toBe(1);
+    expect(result.text()).toContain('questionSettings');
+    expect(result.find('QuestionText').length).toBe(1);
   });
 
-  it('shows renders shortAnswer', () => {
+  it('does not render fileUpload content if inactive', () => {
+    props.item.type = 'fileUpload';
+    props.isActive = false;
+    result = shallow(<Question {...props} />);
+
+    const fileUpload = result.find('FileUpload');
+    expect(fileUpload.length).toBe(0);
+    expect(result.text()).not.toContain('questionSettings');
+    expect(result.find('QuestionText').length).toBe(1);
+  });
+
+  it('shows renders shortAnswer if active', () => {
     props.item.type = 'shortAnswer';
+    props.isActive = true;
     result = shallow(<Question {...props} />);
 
     const shortAns = result.find(shortAnswer);
     expect(shortAns.length).toBe(1);
+    expect(result.text()).toContain('questionSettings');
+    expect(result.find('QuestionText').length).toBe(1);
+  });
+
+  it('does not render shortAnswer content if inactive', () => {
+    props.item.type = 'shortAnswer';
+    props.isActive = false;
+    result = shallow(<Question {...props} />);
+
+    const shortAns = result.find(shortAnswer);
+    expect(shortAns.length).toBe(0);
+    expect(result.text()).not.toContain('questionSettings');
+    expect(result.find('QuestionText').length).toBe(1);
   });
 
   it('returns correct value from getClassName', () => {

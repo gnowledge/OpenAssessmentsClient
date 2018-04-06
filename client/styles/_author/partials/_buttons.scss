@@ -8,6 +8,7 @@
   border-radius: $radius;
   @include display-flex;
   @include align-items(center);
+  position: relative;
 
   &:active{
     @include transform(scale(0.98));
@@ -16,6 +17,41 @@
   // This is for the preview assessment button, I had to put a link in
   a{
     font-size: 1.2rem;
+  }
+
+  [role="tooltip"] {
+    display: none;
+    text-transform: initial;
+  }
+
+  &:hover span[role="tooltip"],
+  &:focus span[role="tooltip"] {
+    display: block;
+    position: absolute;
+    top: -3em;
+    width: 20em;
+    padding-top: 0.75em;
+    padding-right: 1em;
+    padding-bottom: 0.563em;
+    padding-left: 0.5em;
+    border-radius: $radius;
+    background: $gray4;
+    color: $black;
+    box-shadow: 1px 1px 7px;
+  }
+}
+
+.au-c-btn--generate-embed-code {
+  &:hover span[role="tooltip"],
+  &:focus span[role="tooltip"] {
+    left: -6rem;
+  }
+}
+
+.au-c-btn--copy-embed-code {
+  &:hover span[role="tooltip"],
+  &:focus span[role="tooltip"] {
+    left: -11rem;
   }
 }
 
@@ -89,6 +125,10 @@
     background-color: $white;
     color: $green;
   }
+
+  &:focus{
+    outline-color: $black;
+  }
 }
 
 .au-c-btn--gray{
@@ -131,6 +171,7 @@
     background-color: darken($maroon, 10%);
     border-color: darken($maroon, 10%);
     color: $white;
+    outline-color: $black;
   }
 
   &[disabled]{
